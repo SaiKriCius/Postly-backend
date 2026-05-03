@@ -33,41 +33,22 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/notifications", notificationRoutes);
 
-if (process.env.NODE_ENV === "production"){
-  // app.use(express.static(path.join(__dirname, "/frontend/dist")));
-
-  // app.get("*", (req, res) => {
-  //   res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
-  // });
-
-
-  // remove restrictive CSP header while debugging (so browser/devtools requests aren't blocked)
-  app.use((req, res, next) => { res.removeHeader('Content-Security-Policy'); next(); });
-
-  // serve the frontend build (fixed path join — no leading slash)
-  app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
-
-  // serve index.html for SPA routes
- app.get(/.*/, (req, res) => {
-  res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+// Simple landing page for the backend
+app.get("/", (req, res) => {
+  res.send(`
+    <div style="font-family: system-ui, sans-serif; padding: 2rem; text-align: center; max-width: 600px; margin: 0 auto; margin-top: 10vh;">
+      <h1 style="color: #1a1a1a;">Postly API Backend</h1>
+      <p style="color: #666; font-size: 1.1rem; line-height: 1.5;">This server is actively running and processing API requests.</p>
+      <div style="margin-top: 2.5rem; padding: 2rem; background: #f8fafc; border-radius: 16px; border: 1px solid #e2e8f0;">
+        <p style="margin-bottom: 1.5rem; color: #334155; font-weight: 500; font-size: 1.1rem;">You are probably looking for the main application:</p>
+        <a href="https://postly-frontend-five.vercel.app/" 
+           style="display: inline-block; background: #0f172a; color: white; padding: 14px 28px; text-decoration: none; border-radius: 10px; font-weight: 600; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); transition: all 0.2s;">
+          Go to Postly App
+        </a>
+      </div>
+    </div>
+  `);
 });
-// alert
-// alert
-// alert
-// alert
-// alert
-// alert
-// alert
-// alert 
-// alert
-// alert
-// alert
-// alert
-// the line spa routes above fixed the code remember that
-
-
-
-}
 
 
 app.listen(PORT, () => {
